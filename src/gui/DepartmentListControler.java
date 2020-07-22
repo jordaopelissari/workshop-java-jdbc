@@ -81,9 +81,9 @@ public class DepartmentListControler implements Initializable{
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			Pane pane = loader.load();
-			 //referencia para o controlador
+			
 			DepartmentFormControler controler = loader.getController();
-			//injetar o controlador
+			controler.setDepartmentService(new DepartmentService());
 			controler.setDepartment(obj);
 			controler.updateFormData();
 			
