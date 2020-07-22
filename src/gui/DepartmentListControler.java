@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import application.Main;
+import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
 import javafx.collections.FXCollections;
@@ -26,7 +27,7 @@ import javafx.stage.Stage;
 import model.entities.Department;
 import model.services.DepartmentService;
 
-public class DepartmentListControler implements Initializable{
+public class DepartmentListControler implements Initializable, DataChangeListener{
 	
 	private DepartmentService service;
 
@@ -84,6 +85,7 @@ public class DepartmentListControler implements Initializable{
 			
 			DepartmentFormControler controler = loader.getController();
 			controler.setDepartmentService(new DepartmentService());
+			controler.subscribeDataChangeListener(this);
 			controler.setDepartment(obj);
 			controler.updateFormData();
 			
@@ -92,7 +94,6 @@ public class DepartmentListControler implements Initializable{
 			dialogStage.setScene(new Scene(pane));
 			dialogStage.setResizable(false);
 			dialogStage.initOwner(parentStage);
-			//modal no caso 
 			dialogStage.initModality(Modality.WINDOW_MODAL);
 			dialogStage.showAndWait();	
 		}
@@ -101,4 +102,9 @@ public class DepartmentListControler implements Initializable{
 	}
 	
 }
+
+	@Override
+	public void onDataChanged() {
+		updateTableView();
+	}
 }
